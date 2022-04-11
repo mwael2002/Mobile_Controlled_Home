@@ -43,7 +43,7 @@ void I2C_Master_transmit(U8 data){
 void I2C_stop(void){
 	TWCR=0b10010100;
 }
-char I2C_Master_Recieve_ACK(void){
+U8 I2C_Master_Recieve_ACK(void){
 TWCR=0b11000100;
 while(get_bit(TWCR,7)==0);
 return TWDR;
