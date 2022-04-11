@@ -4,8 +4,8 @@
  *  Created on: Sep 10, 2021
  *      Author: mwael
  */
-#include"D:/C/bit_calc.h"
-#include"D:/C/STD.Types.h"
+#include"bit_calc.h"
+#include"STD.Types.h"
 #include"DIO_private.h"
 #include"DIO_interface.h"
 U8 DIO_set_pin_direction(U8 port_no,U8 pin_no,U8 pin_direction){
