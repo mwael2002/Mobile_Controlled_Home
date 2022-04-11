@@ -18,5 +18,4 @@ U8 I2C_Master_Recieve_ACK(void);
 U8 I2C_Master_Recieve_data_NACK(void);
 void I2C_Slave_init(U8 Slave_Address);
 void I2C_Listen(void);
-char* interrupt_re(void);
 #endif /* I2C_INTERFACE_H_ */
