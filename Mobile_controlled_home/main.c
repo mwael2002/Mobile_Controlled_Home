@@ -6,8 +6,8 @@
  */
 #include"string.h"
 #include "util/delay.h"
-#include"D:/C/bit_calc.h"
-#include"D:/C/STD.Types.h"
+#include"bit_calc.h"
+#include"STD.Types.h"
 #include"DIO_interface.h"
 #include"UART_interface.h"
 #include"eeprom.h"
