@@ -4,8 +4,8 @@
  *  Created on: Nov 5, 2021
  *      Author: mwael
  */
-#include"D:/C/bit_calc.h"
-#include"D:/C/STD.Types.h"
+#include"bit_calc.h"
+#include"STD.Types.h"
 #include"DIO_interface.h"
 #include"I2C_private.h"
 #include"I2C_interface.h"
