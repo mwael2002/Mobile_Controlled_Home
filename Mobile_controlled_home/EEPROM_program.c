@@ -1,6 +1,6 @@
 
 #include"string.h"
-#include"D:/C/STD.Types.h"
+#include"STD.Types.h"
 #define F_CPU 8000000
 #include <util/delay.h>
 #include "eeprom.h"
