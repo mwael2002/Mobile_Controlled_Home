@@ -5,8 +5,8 @@
  *      Author: mwael
  */
 #include"string.h"
-#include"D:/C/STD.Types.h"
-#include"D:/C/bit_calc.h"
+#include"STD.Types.h"
+#include"bit_calc.h"
 #include"UART_private.h"
 #include"UART_interface.h"
 
