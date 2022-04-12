@@ -5,12 +5,13 @@
  *      Author: mwael
  */
 #include"string.h"
-#include "util/delay.h"
+#define F_CPU 8000000
+#include"util/delay.h"
 #include"bit_calc.h"
 #include"STD.Types.h"
 #include"DIO_interface.h"
 #include"UART_interface.h"
-#include"eeprom.h"
+#include"EEPROM_interface.h"
 
 typedef struct{
  	char *name;
@@ -21,13 +22,14 @@ U8 adrs[10]={0,25,50,75,100,125,150,175,200,225};
 
 char *recieve=(void*)0;
 char *string=(void*)0;
-char door_lock=0;
 
 U8 func=1;
-U8 user_id;
 
-static U8 pas_flag=0;
+U8 user_id;
+U8 pas_flag=0;
 U8 incorrect_pas=0;
+
+U8 door_lock=0;
 
 void system_init(void);
 void sign_in(void);
@@ -39,21 +41,26 @@ void alarm (void);
 
 void main(void){
     system_init();
-   /* EEpromInit();
+    EEpromInit();
+
     callback_UART(UART_post_string_buffer);
     ptr_mailbox_call_back_UART(post_mailbox);
     char_call_back_UART(send_string);
-    UART_init();*/
-      DIO_set_pin_value(Group_B,DIO_Pin_B0,HIGH);
+    UART_init();
+    Enable_Disable_data_RX_interrupt(enable);
+    Enable_Disable_RX(enable);
+
+
 	while(1){
-    /*sign_in();
+    sign_in();
     open_close_lock();
     switch_led();
     change_username_pas();
     log_out();
     recieve=recieve_mailbox();
-	*/}
+	}
 }
+
 
 void system_init(void){
 	DIO_set_pin_direction(Group_D,DIO_Pin_D0,INPUT);
@@ -81,7 +88,9 @@ void sign_in(void){
 			if((strcmp(name_pas_check.name,read_name_pas.name)==0)&&(strcmp(name_pas_check.pas,read_name_pas.pas)==0)){
 			  user_id=i;
 			  string=" Welcome ";
-			  Enable_TX();
+			  Enable_Disable_data_register_empty_interrupt(enable);
+			  Enable_Disable_TX(enable);
+
 			  func=2;
 			  flag_incorrect_pas=0;
 			  door_lock=1;
@@ -91,16 +100,24 @@ void sign_in(void){
 		}
 		   if(strcmp(flag_name_pas,"1")==0){
 			   string=" Incorrect username or password ";
-			   Enable_TX();
+
+			   if(flag_incorrect_pas==0){
+				   Enable_Disable_data_register_empty_interrupt(enable);
+				  	Enable_Disable_TX(enable);
+			   }
+
 			   flag_incorrect_pas++;
 				flag_name_pas=0;
 			}
+
 		   if(flag_incorrect_pas==3){
 			func=4;
 			alarm();
 		}
 	}
 		}
+
+
 void open_close_lock(void){
 	if(func==2){
 		if((strcmp(recieve,"3")==0)||(door_lock==1)){
@@ -124,6 +141,7 @@ void switch_led(void){
 			}
 		}
 }
+
 
 void change_username_pas(void){
 	if(func==2){
@@ -186,6 +204,8 @@ void change_username_pas(void){
       }
 }
 }
+
+
 void log_out(void){
 	if(func==2){
 	if(strcmp(recieve,"11")==0){
@@ -198,6 +218,7 @@ void log_out(void){
 	}
 }
 }
+
 void alarm(void){
 	DIO_set_pin_direction(Group_D,DIO_Pin_D6,OUTPUT);
 	DIO_set_pin_value(Group_D,DIO_Pin_D6,HIGH);
