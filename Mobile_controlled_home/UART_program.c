@@ -30,14 +30,56 @@ void UART_init(void){
                        //No parity
 	                   // 1 stop bit
 	                   // 8 data bits
-	UCSRB=0b10010000;
+	UCSRB=0b00000000;  //RX and TX are initially disabled
     set_bit(SREG,7);
 }
 
-void Enable_TX(void){
-	set_bit(UCSRB,3);
-	set_bit(UCSRB,5);
+void Enable_Disable_RX(U8 mode){
+	switch(mode){
+	case 0:
+		clear_bit(UCSRB,4);
+		break;
+	case 1:
+	set_bit(UCSRB,4);
+    break;
+	}
 }
+
+void Enable_Disable_data_RX_interrupt(U8 mode){
+	switch(mode){
+	case 0:
+		clear_bit(UCSRB,7);
+		break;
+	case 1:
+	set_bit(UCSRB,7);
+    break;
+	}
+}
+
+
+
+void Enable_Disable_TX(U8 mode){
+	switch(mode){
+	case 0:
+		clear_bit(UCSRB,3);
+		break;
+	case 1:
+	set_bit(UCSRB,3);
+    break;
+	}
+}
+
+void Enable_Disable_data_register_empty_interrupt(U8 mode){
+	switch(mode){
+	case 0:
+		clear_bit(UCSRB,5);
+		break;
+	case 1:
+	set_bit(UCSRB,5);
+    break;
+	}
+}
+
 
 
 void UART_send_char(U8 data){
