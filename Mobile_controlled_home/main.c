@@ -12,32 +12,32 @@
 #include"DIO_interface.h"
 #include"UART_interface.h"
 #include"EEPROM_interface.h"
-
+//structure for name&user password
 typedef struct{
  	char *name;
 	char *pas;
 }name_pas;
 
-U8 adrs[10]={0,25,50,75,100,125,150,175,200,225};
+U8 adrs[10]={0,25,50,75,100,125,150,175,200,225};  //addresses of usernames&passwords in EEPROM
 
-char *recieve=(void*)0;
-char *string=(void*)0;
+char *recieve=(void*)0;          //variable for recieving data through UART
+char *string=(void*)0;           //variable for senting data through UART
 
-U8 func=1;
+U8 func=1;                       //variable for modes of operating
 
-U8 user_id;
+U8 user_id;                      //variable for storing user_id which is order of users in EEPROM
 U8 pas_flag=0;
-U8 incorrect_pas=0;
+U8 incorrect_pas=0;              //variable that changes it's value in case of incorrect password
 
-U8 door_lock=0;
+U8 door_lock=0;                  //variable that changes it's value in case of correct password to open the door lock
 
-void system_init(void);
-void sign_in(void);
-void open_close_lock(void);
-void switch_led(void);
-void change_username_pas(void);
-void log_out(void);
-void alarm (void);
+void system_init(void);          // function that initialize the system
+void sign_in(void);              //function that responsible for signing in of user
+void open_close_lock(void);      //function to open and close door lock
+void switch_led(void);           //function for turning on/off leds
+void change_username_pas(void);  //function for changing username and password
+void log_out(void);              //function for logging out of the user
+void alarm (void);               //function for turning on alarm in case of entering username or password 3 times incorrect
 
 void main(void){
     system_init();
