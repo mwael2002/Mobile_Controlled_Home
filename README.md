@@ -6,3 +6,4 @@ First: 10 users can use it
 Second:Opening and Closing Door Lock
 Third: turning on/off leds
 Forth: changing Username and password
+Atmega32 is used with leds and a Lock
