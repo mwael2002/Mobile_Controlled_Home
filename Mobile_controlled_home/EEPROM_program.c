@@ -1,9 +1,8 @@
 
 #include"string.h"
 #include"STD.Types.h"
-#define F_CPU 8000000
 #include <util/delay.h>
-#include "eeprom.h"
+#include "EEPROM_interface.h"
 #include "I2C_interface.h"
 char I2C_string[2][22];
 void EEpromInit(void)

@@ -5,7 +5,6 @@
  *      Author: mwael
  */
 #include"string.h"
-#define F_CPU 8000000
 #include"util/delay.h"
 #include"bit_calc.h"
 #include"STD.Types.h"
