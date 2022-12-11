@@ -9,8 +9,8 @@
 #include"bit_calc.h"
 #include"STD.Types.h"
 #include"DIO_interface.h"
+#include "EEPROm_interface.h"
 #include"UART_interface.h"
-#include"EEPROM_interface.h"
 //structure for name&user password
 typedef struct{
  	char *name;
@@ -66,8 +66,11 @@ void system_init(void){
 	DIO_set_pin_direction(Group_D,DIO_Pin_D1,OUTPUT);
 	DIO_set_pin_direction(Group_D,DIO_Pin_D7,OUTPUT);
 	DIO_set_pin_value(Group_D,DIO_Pin_D7,LOW);
-	DIO_set_port_direction(Group_B,DIO_Max_Port_direction);
-	DIO_set_port_value(Group_B,LOW);
+	DIO_set_port_direction(Group_A,DIO_Max_Port_direction);
+	DIO_set_port_value(Group_A,LOW);
+
+	  Enable_Disable_data_register_empty_interrupt(enable);
+	  Enable_Disable_TX(enable);
 }
 
 void sign_in(void){
@@ -87,8 +90,7 @@ void sign_in(void){
 			if((strcmp(name_pas_check.name,read_name_pas.name)==0)&&(strcmp(name_pas_check.pas,read_name_pas.pas)==0)){
 			  user_id=i;
 			  string=" Welcome ";
-			  Enable_Disable_data_register_empty_interrupt(enable);
-			  Enable_Disable_TX(enable);
+
 
 			  func=2;
 			  flag_incorrect_pas=0;
@@ -99,11 +101,6 @@ void sign_in(void){
 		}
 		   if(strcmp(flag_name_pas,"1")==0){
 			   string=" Incorrect username or password ";
-
-			   if(flag_incorrect_pas==0){
-				   Enable_Disable_data_register_empty_interrupt(enable);
-				  	Enable_Disable_TX(enable);
-			   }
 
 			   flag_incorrect_pas++;
 				flag_name_pas=0;
@@ -132,10 +129,10 @@ void switch_led(void){
 	if(func==2){
 		for(U8 i=1;i<9;i++){
 			if((recieve[0]=='O')&&(recieve[1]=='N')&&((recieve[2])==(i+48))){
-				DIO_set_pin_value(Group_B,i-1,HIGH);
+				DIO_set_pin_value(Group_A,i-1,HIGH);
 			}
 			else if((recieve[0]=='O')&&(recieve[1]=='F')&&(recieve[2]=='F')&&((recieve[3])==(i+48))){
-				DIO_set_pin_value(Group_B,i-1,LOW);
+				DIO_set_pin_value(Group_A,i-1,LOW);
 			}
 			}
 		}
@@ -219,8 +216,8 @@ void log_out(void){
 }
 
 void alarm(void){
-	DIO_set_pin_direction(Group_D,DIO_Pin_D6,OUTPUT);
-	DIO_set_pin_value(Group_D,DIO_Pin_D6,HIGH);
+	DIO_set_pin_direction(Group_D,DIO_Pin_D3,OUTPUT);
+	DIO_set_pin_value(Group_D,DIO_Pin_D3,HIGH);
     if(func==4){
     	string=" User or Password is incorrect for 3 times the system will close ";
     }

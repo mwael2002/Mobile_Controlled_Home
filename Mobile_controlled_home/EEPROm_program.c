@@ -2,7 +2,8 @@
 #include"string.h"
 #include"STD.Types.h"
 #include <util/delay.h>
-#include "EEPROM_interface.h"
+
+#include "EEPROm_interface.h"
 #include "I2C_interface.h"
 char I2C_string[2][22];
 void EEpromInit(void)
