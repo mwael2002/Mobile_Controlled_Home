@@ -15,7 +15,7 @@ typedef float F32;
 #define NOK		1
 
 #define NULL_POINTER 2
-
+#define TIMEOUT_STATE 3
 #define IDLE_FUNC 10
 #define BUSY_FUNC 11
 
