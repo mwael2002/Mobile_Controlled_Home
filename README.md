@@ -15,7 +15,8 @@ Eclipse IDE is used to develop this project.
 #### 2- USART
 #### 3- TWI (I2C)
 #### 4- EEPROM
-
+#### 5- LED
+#### 6- Buzzer
 
 
 ## Hardware:
